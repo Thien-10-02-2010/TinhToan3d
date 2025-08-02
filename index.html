@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Vẽ & Tính Toán Hình Khối 3D</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Vẽ & Tính Toán Hình Khối 3D</h1>
+
+  <label for="shapeSelect">Chọn hình:</label>
+  <select id="shapeSelect" size="6">
+    <option value="cube">Hình lập phương</option>
+    <option value="box">Hình hộp chữ nhật</option>
+    <option value="sphere">Hình cầu</option>
+    <option value="cylinder">Hình trụ</option>
+    <option value="cone">Hình nón</option>
+    <option value="pyramid">Hình chóp</option>
+    <option value="torus">Hình xuyến</option>
+    <option value="octahedron">Bát diện</option>
+    <option value="dodecahedron">12 mặt</option>
+    <option value="icosahedron">20 mặt</option>
+    <option value="ellipsoid">Ellipsoid</option>
+    <option value="capsule">Con nhộng</option>
+    <option value="halfsphere">Nửa cầu</option>
+    <option value="triangularPrism">Lăng trụ tam giác</option>
+    <option value="hexagonalPrism">Lăng trụ lục giác</option>
+    <option value="pentagonPrism">Lăng trụ ngũ giác</option>
+    <option value="slantcylinder">Trụ xiên</option>
+    <option value="pentagonPyramid">Chóp ngũ giác</option>
+    <option value="trapezoidPrism">Lăng trụ hình thang</option>
+  </select>
+
+  <div id="inputFields"></div>
+  <button id="drawBtn">Vẽ hình</button>
+
+  <canvas id="canvas3D" width="400" height="400"></canvas>
+
+  <div id="results"></div>
+
+  <!-- three.js CDN -->
+  <script src="libs/three.min.js"></script>
+
+  <!-- script chính -->
+  <script type="module" src="script.js"></script>
+</body>
+</html>
