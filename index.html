@@ -1,47 +1,121 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Vẽ & Tính Toán Hình Khối 3D</title>
-  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+  <style>
+    body {
+      font-family: Arial;
+      margin: 20px;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 300px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+    }
+    .inputs {
+      margin-top: 10px;
+    }
+    .inputs input {
+      margin: 5px;
+    }
+  </style>
 </head>
 <body>
   <h1>Vẽ & Tính Toán Hình Khối 3D</h1>
 
-  <label for="shapeSelect">Chọn hình:</label>
-  <select id="shapeSelect" size="6">
-    <option value="cube">Hình lập phương</option>
-    <option value="box">Hình hộp chữ nhật</option>
-    <option value="sphere">Hình cầu</option>
+  <label for="shape">Chọn hình:</label>
+  <select id="shape" onchange="updateForm()">
+    <option value="">--Chọn--</option>
     <option value="cylinder">Hình trụ</option>
-    <option value="cone">Hình nón</option>
-    <option value="pyramid">Hình chóp</option>
-    <option value="torus">Hình xuyến</option>
-    <option value="octahedron">Bát diện</option>
-    <option value="dodecahedron">12 mặt</option>
-    <option value="icosahedron">20 mặt</option>
-    <option value="ellipsoid">Ellipsoid</option>
-    <option value="capsule">Con nhộng</option>
-    <option value="halfsphere">Nửa cầu</option>
-    <option value="triangularPrism">Lăng trụ tam giác</option>
-    <option value="hexagonalPrism">Lăng trụ lục giác</option>
-    <option value="pentagonPrism">Lăng trụ ngũ giác</option>
-    <option value="slantcylinder">Trụ xiên</option>
-    <option value="pentagonPyramid">Chóp ngũ giác</option>
-    <option value="trapezoidPrism">Lăng trụ hình thang</option>
+    <option value="cube">Hình lập phương</option>
+    <option value="sphere">Hình cầu</option>
   </select>
 
-  <div id="inputFields"></div>
-  <button id="drawBtn">Vẽ hình</button>
+  <div class="inputs" id="inputs"></div>
 
-  <canvas id="canvas3D" width="400" height="400"></canvas>
+  <button onclick="draw()">Vẽ hình</button>
+  <button onclick="calculate()">Tính toán</button>
 
-  <div id="results"></div>
+  <div id="output"></div>
+  <canvas id="canvas3d"></canvas>
 
-  <!-- three.js CDN -->
-  <script src="libs/three.min.js"></script>
+  <script>
+    let scene, camera, renderer, mesh;
 
-  <!-- script chính -->
-  <script type="module" src="script.js"></script>
+    function updateForm() {
+      const shape = document.getElementById('shape').value;
+      const inputsDiv = document.getElementById('inputs');
+      inputsDiv.innerHTML = '';
+      if (shape === 'cylinder') {
+        inputsDiv.innerHTML = `
+          <label>Bán kính:</label><input id="r" type="number" /><br/>
+          <label>Chiều cao:</label><input id="h" type="number" /><br/>
+        `;
+      } else if (shape === 'cube') {
+        inputsDiv.innerHTML = `<label>Cạnh:</label><input id="a" type="number" /><br/>`;
+      } else if (shape === 'sphere') {
+        inputsDiv.innerHTML = `<label>Bán kính:</label><input id="r" type="number" /><br/>`;
+      }
+    }
+
+    function draw() {
+      const shape = document.getElementById('shape').value;
+      const canvas = document.getElementById('canvas3d');
+      if (!scene) {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+        renderer = new THREE.WebGLRenderer({ canvas });
+        renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+        camera.position.z = 5;
+      }
+      if (mesh) scene.remove(mesh);
+
+      let geometry;
+      if (shape === 'cylinder') {
+        const r = parseFloat(document.getElementById('r').value);
+        const h = parseFloat(document.getElementById('h').value);
+        geometry = new THREE.CylinderGeometry(r, r, h, 32);
+      } else if (shape === 'cube') {
+        const a = parseFloat(document.getElementById('a').value);
+        geometry = new THREE.BoxGeometry(a, a, a);
+      } else if (shape === 'sphere') {
+        const r = parseFloat(document.getElementById('r').value);
+        geometry = new THREE.SphereGeometry(r, 32, 32);
+      }
+
+      const material = new THREE.MeshNormalMaterial();
+      mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+      renderer.render(scene, camera);
+    }
+
+    function calculate() {
+      const shape = document.getElementById('shape').value;
+      let output = "";
+      if (shape === 'cylinder') {
+        const r = parseFloat(document.getElementById('r').value);
+        const h = parseFloat(document.getElementById('h').value);
+        const V = Math.PI * r * r * h;
+        const S = 2 * Math.PI * r * (r + h);
+        output = `Thể tích: ${V.toFixed(2)}<br>Diện tích: ${S.toFixed(2)}`;
+      } else if (shape === 'cube') {
+        const a = parseFloat(document.getElementById('a').value);
+        const V = a ** 3;
+        const S = 6 * a * a;
+        output = `Thể tích: ${V.toFixed(2)}<br>Diện tích: ${S.toFixed(2)}`;
+      } else if (shape === 'sphere') {
+        const r = parseFloat(document.getElementById('r').value);
+        const V = (4 / 3) * Math.PI * r ** 3;
+        const S = 4 * Math.PI * r * r;
+        output = `Thể tích: ${V.toFixed(2)}<br>Diện tích: ${S.toFixed(2)}`;
+      }
+      document.getElementById('output').innerHTML = output;
+    }
+  </script>
 </body>
 </html>
+
