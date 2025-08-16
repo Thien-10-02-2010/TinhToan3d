@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Vẽ & Tính Toán 19 Hình Khối 3D</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="libs/three.min.js"></script>
+    <script src="libs/OrbitControls.js"></script>
+    <script src="shapes/allShapes.js"></script>
+</head>
+<body>
+    <h2>Vẽ & Tính Toán 19 Hình Khối 3D (nét giống vẽ trên vở)</h2>
+    <p>Chạy tốt trên Chrome. Chọn hình → nhập kích thước → nhấn <b>Vẽ hình</b></p>
+
+    <div id="controls">
+        <label for="shapeSelect">Hình:</label>
+        <select id="shapeSelect"></select>
+        <button id="drawBtn">Vẽ hình</button>
+        <button id="clearBtn">Xoá</button>
+        <label><input type="checkbox" id="autoCamera" checked> Tự điều chỉnh camera</label>
+        <label><input type="checkbox" id="autoRotate" checked> Xoay tự động</label>
+    </div>
+
+    <div id="main">
+        <div id="paramPanel">
+            <h3>Nhập kích thước</h3>
+            <form id="paramForm"></form>
+        </div>
+
+        <div id="canvasPanel">
+            <div id="canvasContainer"></div>
+        </div>
+
+        <div id="resultPanel">
+            <h3>Kết quả tính toán</h3>
+            <div id="result"></div>
+            <div id="legend">
+                <p><b>Chú giải vẽ:</b></p>
+                <ul>
+                    <li>Đường liền: cạnh thấy</li>
+                    <li>Đường đứt: cạnh khuất (mô phỏng)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
