@@ -1,0 +1,90 @@
+/* Reset cơ bản */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #fdfdfd;
+  color: #111;
+  line-height: 1.5;
+  padding: 20px;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+}
+
+/* Khối điều khiển */
+.controls {
+  flex: 0 0 300px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.controls label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.controls select,
+.controls input {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.controls button {
+  padding: 8px 12px;
+  background: #0078d4;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.controls button:hover {
+  background: #005a9e;
+}
+
+.controls .note {
+  font-size: 0.9em;
+  margin-top: 10px;
+}
+
+.controls .note ul {
+  padding-left: 20px;
+}
+
+/* Khung canvas */
+.canvas-container {
+  flex: 1;
+  border: 1px solid #000;
+  background: #fafafa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Khối kết quả */
+.results {
+  margin-top: 10px;
+  padding: 10px;
+  background: #fffbf3;
+  border: 1px solid #f0e0c0;
+  border-radius: 5px;
+  font-family: monospace;
+  font-size: 0.95em;
+  white-space: pre-wrap;
+}
